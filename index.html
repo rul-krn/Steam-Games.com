@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SteamXItch - Toko Game Independen</title>
     <style>
-        /* TEMA STEAM & UTAMA */
         :root {
             --steam-dark: #1b2838;
             --steam-blue: #2a475e;
@@ -13,6 +12,8 @@
             --steam-bg: #171a21;
             --steam-card: #16202d;
             --steam-green: #5c7e10;
+            --steam-green-hover: #7ea61a;
+            --steam-input: #101822;
         }
 
         body {
@@ -39,6 +40,7 @@
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
+            cursor: pointer;
         }
         .logo span { color: var(--steam-light-blue); }
 
@@ -64,7 +66,8 @@
             margin: 0 auto;
         }
 
-        h2 {
+        /* HALAMAN 1: TOKO UTAMA */
+        #halamanToko h2 {
             color: #fff;
             font-size: 22px;
             border-bottom: 2px solid var(--steam-blue);
@@ -73,7 +76,6 @@
             text-transform: uppercase;
         }
 
-        /* GRID DAFTAR GAME */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -108,9 +110,7 @@
             box-sizing: border-box;
         }
 
-        .game-info {
-            padding: 15px;
-        }
+        .game-info { padding: 15px; }
         .game-title {
             color: #fff;
             font-size: 16px;
@@ -119,16 +119,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .game-dev {
-            font-size: 12px;
-            color: #66c0f4;
-            margin-bottom: 15px;
-        }
-        .game-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .game-dev { font-size: 12px; color: #66c0f4; margin-bottom: 15px; }
+        .game-footer { display: flex; justify-content: space-between; align-items: center; }
         .game-price {
             font-weight: bold;
             color: #a3d200;
@@ -138,175 +130,170 @@
             font-size: 14px;
         }
 
-        /* MODAL POPUP UPLOAD GAME */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background-color: var(--steam-dark);
-            padding: 30px;
+        /* HALAMAN 2: DASHBOARD UPLOAD GAME */
+        #halamanUpload {
+            display: none; /* Sembunyi di awal */
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--steam-card);
+            padding: 40px;
             border-radius: 8px;
-            width: 100%;
-            max-width: 500px;
             border: 1px solid var(--steam-blue);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
-        .modal-content h3 {
+
+        #halamanUpload h2 {
             color: #fff;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
         }
+        .sub-title {
+            color: #8f98a0;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
         .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+            margin-bottom: 25px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 14px;
             color: #fff;
+            font-weight: bold;
         }
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 10px;
-            background-color: rgba(0,0,0,0.3);
-            border: 1px solid var(--steam-blue);
+            padding: 12px;
+            background-color: var(--steam-input);
+            border: 1px solid #23262e;
             color: #fff;
             border-radius: 4px;
             box-sizing: border-box;
+            font-size: 14px;
         }
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--steam-light-blue);
             outline: none;
         }
-        .btn-submit {
+
+        /* AREA UNGGUH BERKAS */
+        .drop-zone {
+            border: 2px dashed var(--steam-blue);
+            padding: 30px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .drop-zone:hover {
+            border-color: var(--steam-light-blue);
+        }
+        .drop-zone p { margin: 5px 0; font-size: 14px; color: #8f98a0; }
+        .drop-zone b { color: #fff; }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+        .btn-publish {
             background-color: var(--steam-green);
             color: white;
             border: none;
-            padding: 12px 20px;
-            width: 100%;
+            padding: 15px 30px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 10px;
+            flex: 2;
+            font-size: 16px;
+            transition: background-color 0.2s;
         }
-        .btn-cancel {
-            background: none;
-            color: #aaa;
+        .btn-publish:hover { background-color: var(--steam-green-hover); }
+        .btn-back {
+            background-color: #3d4450;
+            color: #fff;
             border: none;
-            margin-top: 15px;
+            padding: 15px 25px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            flex: 1;
+            font-size: 15px;
         }
+        .btn-back:hover { background-color: #4c5463; }
     </style>
 </head>
 <body>
 
     <!-- NAVIGASI KEPALA -->
     <header>
-        <div class="logo">STEAM<span>ITCH</span></div>
-        <nav>
-            <button onclick="bukaModal()">🟢 Upload Game</button>
+        <div class="logo" onclick="tampilkanToko()">STEAM<span>ITCH</span></div>
+        <nav id="navAksi">
+            <button onclick="tampilkanUpload()">🟢 Upload Game</button>
         </nav>
     </header>
 
-    <!-- KONTEN DAFTAR GAME -->
     <main>
-        <h2>Game Populer Terbaru</h2>
-        <div class="game-grid" id="daftarGame">
-            <!-- Game bawaan simulasi -->
-            <div class="game-card">
-                <div class="game-thumb">Cyber Knight</div>
-                <div class="game-info">
-                    <p class="game-title">Cyber Knight: Neon City</p>
-                    <div class="game-dev">Dev: Alpha Games</div>
-                    <div class="game-footer">
-                        <span class="game-price">Rp 45.000</span>
+        <!-- ==================== VIEW 1: TOKO UTAMA ==================== -->
+        <div id="halamanToko">
+            <h2>Game Populer Terbaru</h2>
+            <div class="game-grid" id="daftarGame">
+                <!-- Game bawaan simulasi -->
+                <div class="game-card">
+                    <div class="game-thumb">Cyber Knight</div>
+                    <div class="game-info">
+                        <p class="game-title">Cyber Knight: Neon City</p>
+                        <div class="game-dev">Dev: Alpha Games</div>
+                        <div class="game-footer">
+                            <span class="game-price">Rp 45.000</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="game-card">
-                <div class="game-thumb">Pixel Dungeon</div>
-                <div class="game-info">
-                    <p class="game-title">Pixel Dungeon Explorer</p>
-                    <div class="game-dev">Dev: IndieStudio</div>
-                    <div class="game-footer">
-                        <span class="game-price">Gratis</span>
+                <div class="game-card">
+                    <div class="game-thumb">Pixel Dungeon</div>
+                    <div class="game-info">
+                        <p class="game-title">Pixel Dungeon Explorer</p>
+                        <div class="game-dev">Dev: IndieStudio</div>
+                        <div class="game-footer">
+                            <span class="game-price">Gratis</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
-    <!-- POPUP PANEL / MODAL UPLOAD -->
-    <div class="modal-overlay" id="uploadModal">
-        <div class="modal-content">
-            <h3>Buat Halaman Game Baru</h3>
-            <form id="gameForm" onsubmit="simpanGame(event)">
+        <!-- ==================== VIEW 2: HALAMAN UPLOAD GAME ==================== -->
+        <div id="halamanUpload">
+            <h2>Dashboard Pembuat Halaman Game</h2>
+            <div class="sub-title">Unggah file game Anda dan terbitkan langsung ke jaringan toko SteamItch.</div>
+            
+            <form id="gameForm" onsubmit="terbitkanGameBaru(event)">
                 <div class="form-group">
                     <label for="judul">Judul Game</label>
-                    <input type="text" id="judul" placeholder="Contoh: Space Wars X" required>
+                    <input type="text" id="judul" placeholder="Masukkan judul projek game Anda..." required>
                 </div>
+                
                 <div class="form-group">
-                    <label for="developer">Nama Developer / Tim</label>
-                    <input type="text" id="developer" placeholder="Contoh: PixelMan Studio" required>
+                    <label for="developer">Nama Kreator / Developer</label>
+                    <input type="text" id="developer" placeholder="Contoh: Studio Kita Game" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="harga">Harga</label>
+                    <label for="deskripsi">Deskripsi Singkat Game</label>
+                    <textarea id="deskripsi" rows="3" placeholder="Ceritakan keseruan game Anda dalam beberapa kalimat..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="harga">Pengaturan Harga</label>
                     <select id="harga">
-                        <option value="Gratis">Gratis</option>
-                        <option value="Rp 29.000">Rp 29.000</option>
-                        <option value="Rp 69.000">Rp 69.000</option>
-                        <option value="Rp 120.000">Rp 120.000</option>
+                        <option value="Gratis">Gratis / Free-to-Play</option>
+                        <option value="Rp 19.000">Rp 19.000</option>
+                        <option value="Rp 49.000">Rp 49.000</option>
+                        <option value="Rp 89.000">Rp 89.000</option>
+                        <option value="Rp 135.000">Rp 135.000</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-submit">Terbitkan Game</button>
-                <center><button type="button" class="btn-cancel" onclick="tutupModal()">Batal</button></center>
-            </form>
-        </div>
-    </div>
 
-    <!-- SCRIPT LOGIKA JAVASCRIPT -->
-    <script>
-        const modal = document.getElementById('uploadModal');
-        const grid = document.getElementById('daftarGame');
-
-        // Fungsi membuka popup form
-        function bukaModal() {
-            modal.style.display = 'flex';
-        }
-
-        // Fungsi menutup popup form
-        function tutupModal() {
-            modal.style.display = 'none';
-            document.getElementById('gameForm').reset();
-        }
-
-        // Fungsi memproses form data dan menampilkannya langsung ke toko
-        function simpanGame(event) {
-            event.preventDefault();
-            
-            const judul = document.getElementById('judul').value;
-            const developer = document.getElementById('developer').value;
-            const harga = document.getElementById('harga').value;
-
-            // Membuat kartu game baru secara instan
-            const kartuBaru = document.createElement('div');
-            kartuBaru.className = 'game-card';
-            kartuBaru.innerHTML = `
-                <div class="game-thumb">${judul}</div>
-                <div class="game-info">
-                    <p class="game-title">${judul}</p>
-                    <div class="game-dev">Dev: ${developer}</div>
-                    <div class="game-footer">
-                        <span class="game-price">${harga}</span>
-                    </div>
-                </div>
-            `;
-
+                <div class="form-group">
+                    <label>Berkas Build Game (.zip / .exe)</label>
